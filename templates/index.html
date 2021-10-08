@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <title>music_genre-ml</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<h1>music genre</h1>
+<div class="agile-its">
+    <h2>Flask with ML Web Service</h2>
+    <div class="w3layouts">
+        <form action="/record">
+            <div class="upload-btn-wrapper">
+                    <button class="btn">record music</button>
+                </div>
+        </form>
+        <div class="photos-upload-view">
+            <form class="upload" action="/predict" method="POST" enctype="multipart/form-data">
+                <div class="upload-btn-wrapper">
+                    <button class="btn">upload wav file</button>
+                    <input type="file" value="Upload" name="audio">
+                </div>
+                <input type="submit" value="预测结果">
+                {% if ml_label %}
+                    <span class="result_lable">
+                        {{ ml_label }}
+                    </span>
+                {% endif %}
+            </form>
+            <form id="addData" action="/addData" method="POST" enctype="multipart/form-data">
+                <div class="upload-btn-wrapper">
+                <button class="btn">add data</button>
+                <input type="file" name="adddata">
+                </div>
+                <div id="genrebox">
+                <select name="genre">
+                    <option value="blues">blues</option>
+                    <option value="classical">classical</option>
+                    <option value="country">country</option>
+                    <option value="disco">disco</option>
+                    <option value="hiphop">hiphop</option>
+                    <option value="jazz">jazz</option>
+                    <option value="metal">metal</option>
+                    <option value="pop">pop</option>
+                    <option value="reggae">reggae</option>
+                    <option value="rock">rock</option>
+                </select>
+                </div>
+                <input type="submit" value="增加数据">
+                {% if md_label %}
+                    <span class="data_lable">
+                        {{ md_label }}
+                    </span>
+                {% endif %}
+            </form>
+            <form id="retrain" action="/retrain" method="POST">
+
+                <input type="submit" value="重新训练">
+                {% if md_label %}
+                    <span class="result_lable">
+                        {{ md_label }}
+                    </span>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
